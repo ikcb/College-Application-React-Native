@@ -1,0 +1,4 @@
+<resources>
+    <string name="app_name">AcadHere</string>
+    <string moduleConfig="true" name="CodePushDeploymentKey">YLkngZBVA8yt6uyE9ezB3Anvyowg4HUBzx8Ty</string>
+</resources>

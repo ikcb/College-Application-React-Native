@@ -1,0 +1,11 @@
+<resources>
+	<color name="bootsplash_background">
+		#111132
+	</color>
+	<color name="splashscreen_background">
+		#111132
+	</color>
+	<color name="white">
+		#FFF
+	</color>
+</resources>
