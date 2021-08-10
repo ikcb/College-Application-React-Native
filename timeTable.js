@@ -221,10 +221,12 @@ export const timeTable = {
                 {
                     teacher: "Isha Pathak Tripathi",
                     Subject: "CSP303-A1",
-                    time: "2:00 - 3:45",
+                    time: "2:00pn - 3:45pn",
                     link: "https://dribbble.com/shots/3979192-University-app"
                 },
             ],
         },
     }
 }
+
+

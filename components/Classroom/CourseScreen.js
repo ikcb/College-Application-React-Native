@@ -19,7 +19,7 @@ const tempData = [{
 
 export default function CourseScreen({ navigation }) {
     const route = useRoute()
-    const { id, image, name, section } = route.params
+    const { id, image, name, section, alternateLink } = route.params
 
     const { userInfo } = useSelector((state) => state);
 
@@ -131,7 +131,6 @@ export default function CourseScreen({ navigation }) {
         }
     }
 
-
     if (!teacher)
         return (<>
             <Header
@@ -185,19 +184,18 @@ export default function CourseScreen({ navigation }) {
                             <Avatar
                                 rounded
                                 size={100}
-                                source={{
-                                    uri: teacher.photoUrl.includes("https://") ? teacher.photoUrl : "https://" + teacher.photoUrl
-                                }}
+                                icon={{ name: 'account', type: 'material-community', size: 60 }}
+                                avatarStyle={{ borderWidth: 1, borderColor: 'white' }}
                                 containerStyle={{ marginTop: 5, borderWidth: 3, borderColor: 'white' }}
                             />
-                            <Icon
+                            {alternateLink ? <Icon
                                 raised
-                                size={14}
-                                name='envelope'
-                                type='font-awesome'
-                                onPress={() => Linking.openURL(`mailto:${teacher.emailAddress}`)}
-                                containerStyle={{ borderRadius: 25, backgroundColor: "white", position: 'absolute', bottom: -14, left: 28 }}
-                            />
+                                size={16}
+                                name='google-classroom'
+                                type='material-community'
+                                onPress={() => Linking.openURL(alternateLink)}
+                                containerStyle={{ fontSize: 20, borderRadius: 25, backgroundColor: "white", position: 'absolute', bottom: -18, left: 24 }}
+                            /> : null}
                         </View>
                         <Text style={styles.classTeacherName}>{teacher.name.fullName}</Text>
                     </View>

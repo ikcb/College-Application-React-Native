@@ -50,3 +50,11 @@ const sendBooks = () => {
             axios.post('https://backend-clg-app.herokuapp.com/admin/resources/ebooks/', item).then(response => console.log(response));
         })
     }
+
+
+ // {
+    //     "Url": "https://drive.google.com/file/d/10Gy_Ti0B9Bzbth3u25GgaXNZiOquyQ1I/view?usp=sharing",
+    //     "Subject_Code": "CST101",
+    //     "Message": "Programming in ANSI C by E. Balagurusamy.",
+    //     "Resource_Type": "Ebook"
+    // },

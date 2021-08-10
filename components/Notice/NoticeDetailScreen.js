@@ -43,9 +43,9 @@ export default function NoticeDetailScreen({ navigation, route }) {
                     color="#598fa0"
                     width={1}
                 />
-                <Text style={styles.msgAttach}>
+                {Link || Other ? <Text style={styles.msgAttach}>
                     Attachments
-                </Text>
+                </Text> : null}
                 {
                     Link ? <Text onPress={() => Linking.openURL(Link)} style={styles.msgLink}>
                         {Link}

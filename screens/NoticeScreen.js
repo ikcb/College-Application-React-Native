@@ -172,39 +172,60 @@ export default function NoticeScreen({ navigation }) {
                     size={26}
                     onPress={() => setFilter(!filter)} />}
             />
-            <FlatList
-                refreshControl={
-                    <RefreshControl
-                        refreshing={refresh}
-                        onRefresh={handleRefresh} />}
-                data={tempNotice}
-                keyExtractor={(item, index) => index.toString()}
-                renderItem={({ item, index }) => {
-                    const date = new Date(item.Post_Time).toDateString()
-                    return (
-                        <ListItem
-                            bottomDivider
-                            onPress={() => {
-                                navigation.navigate("NoticeDetailScreen", { item });
-                                handleNotification(item, index);
-                            }}
-                        >
-                            <ListItem.Content>
-                                <ListItem.Title style={styles.heading}>{item.Heading}</ListItem.Title>
-                                <ListItem.Subtitle style={styles.paraStyle1}>
-                                    <Text numberOfLines={2}>{item.Message}</Text>
-                                </ListItem.Subtitle>
-                                <ListItem.Subtitle style={styles.paraStyle3}>Date : {date}</ListItem.Subtitle>
-                                <ListItem.Subtitle style={styles.paraStyle2}>Status : {item.Status}</ListItem.Subtitle>
-                            </ListItem.Content>
-                            <ListItem.Chevron size={30} />
-                        </ListItem>
-                    )
-                }
-                }
-                ListFooterComponent={<View style={{ paddingBottom: 70, backgroundColor: "white" }}></View>}
-            />
-
+            {
+                tempNotice.length == 0 ?
+                    <ListItem>
+                        <ListItem.Content>
+                            <ListItem.Title style={styles.heading}>
+                                No Notices Yet
+                            </ListItem.Title>
+                        </ListItem.Content>
+                        <ListItem.Chevron size={30} />
+                    </ListItem> :
+                    <FlatList
+                        refreshControl={
+                            <RefreshControl
+                                refreshing={refresh}
+                                onRefresh={handleRefresh} />}
+                        data={tempNotice}
+                        keyExtractor={(item, index) => index.toString()}
+                        renderItem={({ item, index }) => {
+                            const date = new Date(item.Post_Time).toDateString()
+                            return (
+                                <ListItem.Swipeable
+                                    leftContent={
+                                        <Button
+                                            title="Info"
+                                            icon={{ name: 'info', color: 'white' }}
+                                            buttonStyle={{ minHeight: '100%' }}
+                                        />
+                                    }
+                                    rightContent={
+                                        <Button
+                                            title="Delete"
+                                            icon={{ name: 'delete', color: 'white' }}
+                                            buttonStyle={{ minHeight: '100%', backgroundColor: 'red' }}
+                                        />
+                                    }
+                                    bottomDivider
+                                    onPress={() => {
+                                        navigation.navigate("NoticeDetailScreen", { item });
+                                        handleNotification(item, index);
+                                    }}
+                                >
+                                    <ListItem.Content>
+                                        <ListItem.Title style={styles.heading}>{item.Heading}</ListItem.Title>
+                                        <Text style={styles.paraStyle1} numberOfLines={2}>{item.Message}</Text>
+                                        <ListItem.Subtitle style={styles.paraStyle3}>Date : {date}</ListItem.Subtitle>
+                                        <ListItem.Subtitle style={styles.paraStyle2}>Status : {item.Status}</ListItem.Subtitle>
+                                    </ListItem.Content>
+                                    <ListItem.Chevron size={30} />
+                                </ListItem.Swipeable>
+                            )
+                        }
+                        }
+                        ListFooterComponent={<View style={{ paddingBottom: 70, backgroundColor: "white" }}></View>}
+                    />}
         </View>
     )
 }

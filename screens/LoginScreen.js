@@ -23,9 +23,7 @@ const scope = [
     "https://www.googleapis.com/auth/classroom.courses.readonly",
     "https://www.googleapis.com/auth/classroom.coursework.students.readonly",
     "https://www.googleapis.com/auth/classroom.courseworkmaterials.readonly",
-    "https://www.googleapis.com/auth/classroom.rosters.readonly",
-    "https://www.googleapis.com/auth/classroom.profile.emails",
-    "https://www.googleapis.com/auth/classroom.profile.photos"]
+    "https://www.googleapis.com/auth/classroom.rosters.readonly"]
 
 export default function LoginScreen({ navigation }) {
     //Redux
@@ -173,7 +171,7 @@ export default function LoginScreen({ navigation }) {
         getBooks();
         GoogleSignin.configure({
             scopes: scope,
-            webClientId: '432694435781-jlud97lckhm25j1tt101k3q2g9inspc2.apps.googleusercontent.com',
+            webClientId: '139665802954-sgtmunavh4r3kqd18eimggqriqdre6pd.apps.googleusercontent.com',
             offlineAccess: true,
         });
         const subscriber = auth().onAuthStateChanged(onAuthStateChanged);

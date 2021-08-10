@@ -4,11 +4,11 @@ import { windowWidth, COLORS, classbg, windowHeight } from "../../constants/Cons
 import { useNavigation } from '@react-navigation/native';
 
 export default function ClassroomBox({ courseItem }) {
-    const { descriptionHeading, name, section, id, index } = courseItem
+    const { descriptionHeading, name, section, id, index, alternateLink } = courseItem
     const navigation = useNavigation();
 
     return (
-        <Pressable activeOpacity={0.1} onPress={() => navigation.navigate("CourseScreen", { name, id, bgColor: COLORS[index % COLORS.length], section, image: classbg[index % classbg.length] })}>
+        <Pressable activeOpacity={0.1} onPress={() => navigation.navigate("CourseScreen", { name, id, bgColor: COLORS[index % COLORS.length], section, image: classbg[index % classbg.length], alternateLink: alternateLink })}>
             <View style={styles.contestBox}>
                 <ImageBackground source={classbg[index % classbg.length]} style={styles.image}>
                     <View>

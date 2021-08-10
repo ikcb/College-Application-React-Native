@@ -113,6 +113,7 @@ export default function AboutTeam({ navigation }) {
                     <ListItem
                         bottomDivider
                         onPress={() => navigation.navigate("Team")}
+                        onLongPress={() => navigation.navigate("Admin")}
                         style={styles.listItem}
                     >
                         <Icon
@@ -138,14 +139,14 @@ export default function AboutTeam({ navigation }) {
                 <View style={styles.spacer} />
                 <Text style={styles.textStart}>Support</Text>
                 <View style={styles.containerBox}>
-                    <ListItem bottomDivider onPress={() => Linking.openURL("mailto:2020kucp1138@iiitkota.ac.in")}>
+                    <ListItem bottomDivider onPress={() => Linking.openURL("https://acadhere.vercel.app/acadhere/faq")}>
                         <Icon
                             name='question-circle'
                             type='font-awesome'
                             color='#f50'
                         />
                         <ListItem.Content >
-                            <ListItem.Title style={styles.title}>Help</ListItem.Title>
+                            <ListItem.Title style={styles.title}>FAQ</ListItem.Title>
                         </ListItem.Content>
                     </ListItem>
                     <ListItem bottomDivider onPress={() => Linking.openURL("mailto:2020kucp1138@iiitkota.ac.in")}>

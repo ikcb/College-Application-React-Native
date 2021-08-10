@@ -23,7 +23,7 @@ export default function ContestScreen() {
     const [extraData, setextraData] = useState(contests)
     const [extraHackData, setextraHackData] = useState(hackathons)
     const [pgNum, setpgNum] = useState(2)
-    const [change, setChange] = useState(false)
+    const [change, setChange] = useState(true)
 
     //Api Contest
     const getList = async () => {

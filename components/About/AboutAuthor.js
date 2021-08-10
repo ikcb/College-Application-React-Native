@@ -96,7 +96,7 @@ export default function AboutAuthor() {
                 <View style={{ marginTop: 20 }}>
                     <Text style={styles.akash}> Made with</Text>
                     <Text style={styles.akash}> ❤️</Text>
-                    <Text style={styles.akash}> Team AcadHere</Text>
+                    <Text style={styles.akash}> Team Aztecs</Text>
                 </View>
             </View>
         </ScrollView>

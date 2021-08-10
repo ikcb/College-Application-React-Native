@@ -3,7 +3,7 @@ export const tempData = [{
     "Post_Time": new Date().toLocaleString(),
     "Resource_Type": "Null",
     "Subject_Code": "Error 404",
-    "Url": "https://iiitkota.ac.in/",
+    "Url": "https://acadhere.vercel.app/",
 }];
 
 const initialState =

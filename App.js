@@ -14,6 +14,7 @@ import { useSelector } from 'react-redux';
 import NoticeDetailScreen from './components/Notice/NoticeDetailScreen';
 import AboutTeam from './components/About/AboutTeam';
 import AboutAuthor from './components/About/AboutAuthor';
+import Admin from './components/About/Admin';
 import codePush from 'react-native-code-push';
 import { windowWidth, windowHeight } from "./constants/Constants"
 import LottieView from 'lottie-react-native';
@@ -109,6 +110,7 @@ function AboutStackScreen() {
       <AboutStack.Screen options={{ title: "Settings", headerTitleAlign: "center", headerTitleStyle: { fontSize: 24 } }} name="Settings" component={AboutScreen} />
       <AboutStack.Screen options={{ title: "Team" }} name="Team" component={AboutTeam} />
       <AboutStack.Screen options={{ title: "Author" }} name="Author" component={AboutAuthor} />
+      <AboutStack.Screen options={{ title: "Admin" }} name="Admin" component={Admin} />
     </AboutStack.Navigator>
   );
 }
@@ -295,8 +297,8 @@ function App() {
 }
 
 //Default App Export
-// export default codePush(App);
-export default App;
+export default codePush(App);
+// export default App;
 
 
 // appcenter codepush release-react -a MrMischievousX/AcadHere

@@ -114,7 +114,7 @@ export default function HomeScreen({ navigation }) {
                 <View style={styles.deadline}>
                     <Text style={styles.date}>{date}</Text>
                     <Text style={styles.deadlineText1}>
-                        Today Classes
+                        Today Classes (Sample Preview)
                     </Text>
                     <FlatList
                         horizontal
