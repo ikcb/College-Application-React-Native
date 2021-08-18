@@ -3,8 +3,9 @@ import { View, Text, StyleSheet, TouchableOpacity, ScrollView, TextInput } from 
 import { Input } from 'react-native-elements';
 import { windowWidth, windowHeight } from "../../constants/Constants"
 import axios from 'axios';
+import { setAdmin } from '../../reduxConfig/actions';
 
-export default function Notice() {
+export default function Notice({dispatch}) {
     const [message, setmessage] = useState("")
     const [heading, setheading] = useState("")
     const [code, setcode] = useState("")
@@ -28,13 +29,12 @@ export default function Notice() {
             "Status": code,
         };
 
-        console.log(item)
         axios.post('https://backend-clg-app.herokuapp.com/admin/notice_board/', item).then(response => {
             setokh(true)
             setTimeout(() => {
                 setokh(false)
             }, 1000)
-        });
+        }).catch((e) => dispatch(setAdmin(false)));
 
         reset()
     }

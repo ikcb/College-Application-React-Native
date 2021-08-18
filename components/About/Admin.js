@@ -7,9 +7,13 @@ import Books from './Books';
 import Notes from './Notes';
 import Notice from './Notice';
 import Video from './Video';
+import { useSelector, useDispatch } from 'react-redux';
+import { setAdmin } from '../../reduxConfig/actions';
 
-export default function Admin() {
-    const [user, setuser] = useState(false)
+export default function AdminScreen() {
+    const { Admin } = useSelector((state) => state);
+    const dispatch = useDispatch();
+
     const [error, seterror] = useState(false)
     const [username, setusername] = useState("")
     const [password, setpassword] = useState("")
@@ -23,21 +27,21 @@ export default function Admin() {
         };
         axios.post('https://backend-clg-app.herokuapp.com/admin/login', article)
             .then(response => {
-                response.data === "ok!" ? setuser(true) : seterror(true)
+                response.data === "ok!" ? dispatch(setAdmin(true)) : dispatch(setAdmin(false))
             })
             .catch((e) => seterror(true));
     }
 
     const renderTab = () => {
         switch (index) {
-            case 0: return <Notice />;
-            case 1: return <Notes />;
-            case 2: return <Video />;
-            case 3: return <Books />;
+            case 0: return <Notice dispatch={dispatch} />;
+            case 1: return <Notes dispatch={dispatch} />;
+            case 2: return <Video dispatch={dispatch} />;
+            case 3: return <Books dispatch={dispatch} />;
         }
     }
 
-    if (!user)
+    if (!Admin)
         return <View style={styles.userContainer}>
             <Input
                 placeholder="Username"
@@ -118,4 +122,12 @@ const styles = StyleSheet.create({
         fontFamily: "sans-serif",
         borderBottomColor: "red"
     },
+    error: {
+        fontSize: 20,
+        fontFamily: "sans-serif",
+        color: "red",
+        fontFamily:"600",
+        textAlign: "center",
+        marginTop: 20
+    }
 })

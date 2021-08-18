@@ -1,10 +1,9 @@
 import React, { useEffect, useState } from 'react'
 import { View, UIManager, Image, FlatList, Text, StyleSheet, RefreshControl } from 'react-native'
-import { Header, ListItem, Icon, Overlay } from 'react-native-elements'
+import { Header, ListItem, Icon, Overlay, Button } from 'react-native-elements'
 import axios from "axios"
 import { useSelector, useDispatch } from 'react-redux';
-import { setNotice } from '../reduxConfig/actions';
-import PushNotification from "react-native-push-notification";
+import { setNotice, setAdmin } from '../reduxConfig/actions';
 import { windowWidth } from '../constants/Constants';
 
 if (Platform.OS === 'android') {
@@ -14,7 +13,7 @@ if (Platform.OS === 'android') {
 }
 
 export default function NoticeScreen({ navigation }) {
-    const { userInfo, notice } = useSelector((state) => state);
+    const { userInfo, notice, Admin } = useSelector((state) => state);
     const dispatch = useDispatch();
 
     const [refresh, setRefresh] = useState(false)
@@ -31,6 +30,19 @@ export default function NoticeScreen({ navigation }) {
                 dispatch(setNotice(data.data.messages))
                 setRefresh(false)
             })
+    }
+
+    const deleteNotice = async ({ _id }) => {
+        console.log("Deleting Notice")
+
+        axios.delete(`https://backend-clg-app.herokuapp.com/admin/notice_board/${_id}`, {
+            headers: { 'email': userInfo.email }
+        }).
+            then((data) => {
+                dispatch(setNotice(data.data.messages))
+                setRefresh(false)
+                getNotice()
+            }).catch((e) => dispatch(setAdmin(false)))
     }
 
     useEffect(() => {
@@ -50,41 +62,6 @@ export default function NoticeScreen({ navigation }) {
     const handleRefresh = () => {
         setRefresh(true)
         getNotice()
-    }
-
-
-    const handleNotification = (item, index) => {
-
-        PushNotification.cancelAllLocalNotifications();
-
-        // PushNotification.localNotification({
-        //     channelId: "Notify",
-        //     title: "You clicked on " + item.Heading,
-        //     message: item.Status,
-        //     bigText: item.Message,
-        //     subText: item.Status,
-        //     priority: "high",
-        //     id: index,
-        //     playSound: true,
-        //     soundName: 'sound.mp3',
-        //     autoCancel: true,
-        //     vibrate: true,
-        //     vibration: 300,
-        //     onlyAlertOnce: true,
-        // });
-
-        // PushNotification.localNotificationSchedule({
-        //     channelId: "Notify",
-        //     title: "You clicked on " + item.Heading,
-        //     message: item.Message,
-        //     date: new Date(Date.now() + 2 * 1000),
-        //     allowWhileIdle: true,
-        //     vibrate: true,
-        //     vibration: 300,
-        //     playSound: true,
-        //     autoCancel: true,
-        //     soundName: 'sound.mp3',
-        // });
     }
 
     const setFilters = () => {
@@ -108,6 +85,10 @@ export default function NoticeScreen({ navigation }) {
         {
             text: "Very Important",
             name: "Very Important",
+        },
+        {
+            text: "Casual",
+            name: "Casual",
         },
     ]
 
@@ -192,35 +173,51 @@ export default function NoticeScreen({ navigation }) {
                         renderItem={({ item, index }) => {
                             const date = new Date(item.Post_Time).toDateString()
                             return (
-                                <ListItem.Swipeable
-                                    leftContent={
-                                        <Button
-                                            title="Info"
-                                            icon={{ name: 'info', color: 'white' }}
-                                            buttonStyle={{ minHeight: '100%' }}
-                                        />
+                                <>
+                                    {
+                                        Admin ? <ListItem.Swipeable
+                                            leftContent={
+                                                <Button
+                                                    title="Patch"
+                                                    buttonStyle={{ minHeight: '100%' }}
+                                                />
+                                            }
+                                            rightContent={
+                                                <Button
+                                                    title="Delete"
+                                                    buttonStyle={{ minHeight: '100%', backgroundColor: 'red' }}
+                                                    onPress={() => deleteNotice(item)}
+                                                />
+                                            }
+                                            bottomDivider
+                                            onPress={() => {
+                                                navigation.navigate("NoticeDetailScreen", { item });
+                                            }}
+                                        >
+                                            <ListItem.Content>
+                                                <ListItem.Title style={styles.heading}>{item.Heading}</ListItem.Title>
+                                                <Text style={styles.paraStyle1} numberOfLines={2}>{item.Message}</Text>
+                                                <ListItem.Subtitle style={styles.paraStyle3}>Date : {date}</ListItem.Subtitle>
+                                                <ListItem.Subtitle style={styles.paraStyle2}>Status : {item.Status}</ListItem.Subtitle>
+                                            </ListItem.Content>
+                                            <ListItem.Chevron size={30} />
+                                        </ListItem.Swipeable> :
+                                            <ListItem
+                                                bottomDivider
+                                                onPress={() => {
+                                                    navigation.navigate("NoticeDetailScreen", { item });
+                                                }}
+                                            >
+                                                <ListItem.Content>
+                                                    <ListItem.Title style={styles.heading}>{item.Heading}</ListItem.Title>
+                                                    <Text style={styles.paraStyle1} numberOfLines={2}>{item.Message}</Text>
+                                                    <ListItem.Subtitle style={styles.paraStyle3}>Date : {date}</ListItem.Subtitle>
+                                                    <ListItem.Subtitle style={styles.paraStyle2}>Status : {item.Status}</ListItem.Subtitle>
+                                                </ListItem.Content>
+                                                <ListItem.Chevron size={30} />
+                                            </ListItem>
                                     }
-                                    rightContent={
-                                        <Button
-                                            title="Delete"
-                                            icon={{ name: 'delete', color: 'white' }}
-                                            buttonStyle={{ minHeight: '100%', backgroundColor: 'red' }}
-                                        />
-                                    }
-                                    bottomDivider
-                                    onPress={() => {
-                                        navigation.navigate("NoticeDetailScreen", { item });
-                                        handleNotification(item, index);
-                                    }}
-                                >
-                                    <ListItem.Content>
-                                        <ListItem.Title style={styles.heading}>{item.Heading}</ListItem.Title>
-                                        <Text style={styles.paraStyle1} numberOfLines={2}>{item.Message}</Text>
-                                        <ListItem.Subtitle style={styles.paraStyle3}>Date : {date}</ListItem.Subtitle>
-                                        <ListItem.Subtitle style={styles.paraStyle2}>Status : {item.Status}</ListItem.Subtitle>
-                                    </ListItem.Content>
-                                    <ListItem.Chevron size={30} />
-                                </ListItem.Swipeable>
+                                </>
                             )
                         }
                         }

@@ -15,7 +15,6 @@ export default function HackathonBox({ name, site, desc, reg_start, host, reg_en
                 <TouchableOpacity onPress={() => Linking.openURL(site)}>
                     <Text style={styles.contestTextVisit}> Link </Text>
                 </TouchableOpacity>
-
             </View>
             <Text style={styles.contestTextName}>Event Name : {name}</Text>
             <Text style={styles.contestTextWebsite}>Start Date : {start.slice(0, 21)}</Text>

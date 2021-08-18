@@ -3,8 +3,9 @@ import { View, Text, StyleSheet, TouchableOpacity, ScrollView, TextInput } from 
 import { Input } from 'react-native-elements';
 import { windowWidth, windowHeight } from "../../constants/Constants"
 import axios from 'axios';
+import { setAdmin } from '../../reduxConfig/actions';
 
-export default function Books() {
+export default function Books({ dispatch }) {
     const [message, setmessage] = useState("")
     const [url, seturl] = useState("")
     const [code, setcode] = useState("")
@@ -34,7 +35,7 @@ export default function Books() {
             setTimeout(() => {
                 setokh(false)
             }, 1000)
-        });
+        }).catch((e) => dispatch(setAdmin(false)));
 
         reset()
     }

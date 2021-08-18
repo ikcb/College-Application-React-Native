@@ -9,9 +9,9 @@ export default function TimeTable({ item, index }) {
             <ImageBackground source={classbg[index % classbg.length]} style={styles.image}>
                 <View style={styles.timeContainer}>
                     <Text style={styles.subjectText}>{item.Subject}</Text>
-                    <Text style={styles.timeText}>{item.time}</Text>
+                    <Text style={styles.timeText}>{item.Time}</Text>
                 </View>
-                <Text style={styles.teacherText}>{item.teacher}</Text>
+                <Text style={styles.teacherText}>{item.Teacher}</Text>
                 <Text style={styles.linkText} onPress={() => Linking.openURL(item.link)}>Link</Text>
             </ImageBackground>
         </View>

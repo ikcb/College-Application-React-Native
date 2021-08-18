@@ -1,10 +1,10 @@
-import React, { useState, useEffect } from 'react'
+import React, { useEffect } from 'react'
 import { StyleSheet, RefreshControl, View, Text, ScrollView, FlatList, Image } from 'react-native'
-import { windowWidth, timeTable } from "../constants/Constants"
+import { windowWidth } from "../constants/Constants"
 import { Avatar, Header } from 'react-native-elements'
 import Deadline from "../components/HomeScreen/Deadline"
 import UploadBox from "../components/HomeScreen/UploadBox"
-import TimeTable from "../components/HomeScreen/TimeTable"
+import TimeTableComp from "../components/HomeScreen/TimeTableComp"
 import { useSelector, useDispatch } from 'react-redux';
 import { setCourseSubmissionData, signInWithGoogle, setSubmissionData } from '../reduxConfig/actions'
 import { GoogleSignin } from '@react-native-google-signin/google-signin';
@@ -12,7 +12,7 @@ import axios from 'axios';
 
 export default function HomeScreen({ navigation }) {
     //Redux
-    const { userInfo, authData, courses, submissionsData, courseSubData, ebooks, udemyCourses, notes, recordings, extras } = useSelector((state) => state);
+    const { userInfo, batchData, authData, courses, submissionsData, courseSubData, ebooks, udemyCourses, notes, recordings, extras, batch } = useSelector((state) => state);
     const dispatch = useDispatch();
 
     // Local State
@@ -113,18 +113,7 @@ export default function HomeScreen({ navigation }) {
                 style={{ flex: 1, backgroundColor: "white" }}>
                 <View style={styles.deadline}>
                     <Text style={styles.date}>{date}</Text>
-                    <Text style={styles.deadlineText1}>
-                        Today Classes (Sample Preview)
-                    </Text>
-                    <FlatList
-                        horizontal
-                        showsHorizontalScrollIndicator={false}
-                        data={timeTable}
-                        renderItem={({ item, index }) => {
-                            return <TimeTable item={item} index={index} />
-                        }}
-                        keyExtractor={(item, index) => index.toString()}
-                    />
+                    <TimeTableComp batchData={batchData} batch={batch} dispatch={dispatch} />
                 </View>
 
                 <View style={styles.deadline1}>
@@ -160,7 +149,7 @@ export default function HomeScreen({ navigation }) {
                             }}
                             keyExtractor={(item, index) => index.toString()}
                         />
-                    </View> :
+                    </View> :ebooks.length > 1 &&
                     <View style={styles.section}>
                         <Text style={styles.uploadText}>New Ebooks</Text>
                         <FlatList
@@ -186,7 +175,7 @@ export default function HomeScreen({ navigation }) {
                             }}
                             keyExtractor={(item, index) => index.toString()}
                         />
-                    </View> :
+                    </View> :udemyCourses.length > 1 &&
                     <View style={styles.section}>
                         <Text style={styles.uploadText}>New Courses</Text>
                         <FlatList
@@ -212,7 +201,7 @@ export default function HomeScreen({ navigation }) {
                             }}
                             keyExtractor={(item, index) => index.toString()}
                         />
-                    </View> :
+                    </View> :notes.length > 1 &&
                     <View style={styles.section}>
                         <Text style={styles.uploadText}>New Notes</Text>
                         <FlatList
@@ -238,7 +227,7 @@ export default function HomeScreen({ navigation }) {
                             }}
                             keyExtractor={(item, index) => index.toString()}
                         />
-                    </View> :
+                    </View> :recordings.length > 1 &&
                     <View style={styles.section}>
                         <Text style={styles.uploadText}>New Recordings</Text>
                         <FlatList
@@ -264,7 +253,7 @@ export default function HomeScreen({ navigation }) {
                             }}
                             keyExtractor={(item, index) => index.toString()}
                         />
-                    </View> :
+                    </View> : extras.length > 1 &&
                     <View style={styles.section}>
                         <Text style={styles.uploadText}>New Extras</Text>
                         <FlatList

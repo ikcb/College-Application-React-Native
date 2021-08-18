@@ -6,6 +6,7 @@ import { EbooksTab, ExtraTab, NotesTab, RecordingTab, CoursesTab } from "../comp
 import axios from "axios"
 import { windowWidth, windowHeight, filterData } from "../constants/Constants"
 import { setEbook, setUdemyCourses, setNotes, setExtra, setRecordings } from '../reduxConfig/actions';
+import { tempData } from '../reduxConfig/reducers';
 
 export default function ResourcesScreen() {
     const { ebooks, notes, recordings, extras, udemyCourses } = useSelector((state) => state);
@@ -30,15 +31,15 @@ export default function ResourcesScreen() {
     const getBooks = async () => {
         console.log("Get Resources");
         await axios.get('https://backend-clg-app.herokuapp.com/resources/ebooks/')
-            .then(response => response.data.length >= 1 ? dispatch(setEbook(response.data)) : null);
+            .then(response => response.data.length >= 1 ? dispatch(setEbook(response.data)) : dispatch(setEbook(tempData)));
         await axios.get('https://backend-clg-app.herokuapp.com/resources/videos/')
-            .then(response => response.data.length >= 1 ? dispatch(setRecordings(response.data)) : null);
+            .then(response => response.data.length >= 1 ? dispatch(setRecordings(response.data)) : dispatch(setRecordings(tempData)));
         await axios.get('https://backend-clg-app.herokuapp.com/resources/notes/')
-            .then(response => response.data.length >= 1 ? dispatch(setNotes(response.data)) : null);
+            .then(response => response.data.length >= 1 ? dispatch(setNotes(response.data)) : dispatch(setNotes(tempData)));
         await axios.get('https://backend-clg-app.herokuapp.com/resources/courses/')
-            .then(response => response.data.length >= 1 ? dispatch(setUdemyCourses(response.data)) : null);
+            .then(response => response.data.length >= 1 ? dispatch(setUdemyCourses(response.data)) : dispatch(setUdemyCourses(tempData)));
         await axios.get('https://backend-clg-app.herokuapp.com/resources/extras/')
-            .then(response => response.data.length >= 1 ? dispatch(setExtra(response.data)) : null);
+            .then(response => response.data.length >= 1 ? dispatch(setExtra(response.data)) : dispatch(setExtra(tempData)));
     }
 
     useEffect(() => {

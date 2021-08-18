@@ -13,7 +13,6 @@ export default function ContestBox({ name, duration, source, time, url, index })
                 <TouchableOpacity onPress={() => Linking.openURL(url)}>
                     <Text style={styles.contestTextVisit}> Link </Text>
                 </TouchableOpacity>
-
             </View>
             <Text style={styles.contestTextName}>Event Name : {name}</Text>
             <Text style={styles.contestTextWebsite}>Start Date : {start.slice(0, 21)}</Text>
@@ -73,10 +72,3 @@ const styles = StyleSheet.create({
         borderRadius: 6
     },
 })
-
-// contest_url: "https://topcoder.com/community/events/"
-// duration: 7200
-// event_name: "SRM 808"
-// resource_website: "topcoder.com"
-// start_time: "Fri Jun 25 2021 11:00:00 GMT+0530 (India Standard Time)"
-// status: "Upcoming"

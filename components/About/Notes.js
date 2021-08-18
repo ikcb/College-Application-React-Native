@@ -3,8 +3,9 @@ import { View, Text, StyleSheet, TouchableOpacity, ScrollView, TextInput } from 
 import { Input } from 'react-native-elements';
 import { windowWidth, windowHeight } from "../../constants/Constants"
 import axios from 'axios';
+import { setAdmin } from '../../reduxConfig/actions';
 
-export default function Notes() {
+export default function Notes({ dispatch }) {
     const [message, setmessage] = useState("")
     const [url, seturl] = useState("")
     const [code, setcode] = useState("")
@@ -29,13 +30,12 @@ export default function Notes() {
             "Resources_Type": "Notes",
         };
 
-        console.log(item)
         axios.post('https://backend-clg-app.herokuapp.com/admin/resources/notes/', item).then(response => {
             setokh(true)
             setTimeout(() => {
                 setokh(false)
             }, 1000)
-        });
+        }).catch((e) => dispatch(setAdmin(false)));
 
         reset()
     }

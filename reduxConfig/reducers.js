@@ -22,6 +22,9 @@ const initialState =
     notes: tempData,
     extras: tempData,
     recordings: tempData,
+    batch: null,
+    batchData: null,
+    Admin: false,
 };
 
 export const reducer = (state = initialState, action) => {
@@ -58,6 +61,12 @@ export const reducer = (state = initialState, action) => {
             return { ...state, extras: action.payload };
         case 'setRecordingsAsync':
             return { ...state, recordings: action.payload };
+        case 'setBatchAsync':
+            return { ...state, batch: action.payload };
+        case 'setBatchDataAsync':
+            return { ...state, batchData: action.payload };
+        case 'setAdminAsync':
+            return { ...state, Admin: action.payload };
         default:
             return state;
     }

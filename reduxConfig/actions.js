@@ -61,6 +61,17 @@ export const setRecordings = (data) => {
     return { type: 'setRecordingsAsync', payload: data };
 };
 
+export const setBatch = (data) => {
+    return { type: 'setBatchAsync', payload: data };
+};
+export const setBatchData = (data) => {
+    return { type: 'setBatchDataAsync', payload: data };
+};
+
+export const setAdmin = (data) => {
+    return { type: 'setAdminAsync', payload: data };
+};
+
 
 
 
