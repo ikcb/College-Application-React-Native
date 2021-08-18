@@ -48,6 +48,8 @@ You can download the latest APK [here](https://drive.google.com/drive/folders/1C
 <img width="250px" style="margin:30px" src="./assets/readme/ebook.png">
 <img width="250px" style="margin:30px" src="./assets/readme/ebookLink.png">
 <img width="250px" style="margin:30px" src="./assets/readme/course.png">
+<img width="250px" style="margin:30px" src="./assets/readme/resourceFilter.png">
+<img width="250px" style="margin:30px" src="./assets/readme/course.png">
 <img width="250px" style="margin:30px" src="./assets/readme/about.png">
 <img width="250px" style="margin:30px" src="./assets/readme/aboutTeam.png">
 <img width="250px" style="margin:30px" src="./assets/readme/aboutAuthor.png">
