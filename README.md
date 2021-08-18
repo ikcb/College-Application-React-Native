@@ -13,7 +13,7 @@
 
 ---
 
-## Features
+## :sparkles: Main Features
 
 - Class Time Table.
 - Important Class Notices.
@@ -31,27 +31,26 @@ You will need a [Google Classroom](https://classroom.google.com/) account to Acc
 
 You can download the latest APK [here](https://drive.google.com/drive/folders/1CGEC3OQnDv9zqSFp-df11RNRgy4gAfPo?usp=sharing).
 
-## Screenshots
-
-### Android
-
-<img width="288px" src="./assets/readme/splash.png">
-<img width="288px" src="./assets/readme/Login.png">
-<img width="288px" src="./assets/readme/homescreen.png">
-<img width="288px" src="./assets/readme/notice.png">
-<img width="288px" src="./assets/readme/noticeDetail.png">
-<img width="288px" src="./assets/readme/classroom.png">
-<img width="288px" src="./assets/readme/classroomDetail.png">
-<img width="288px" src="./assets/readme/classData.png">
-<img width="288px" src="./assets/readme/classAnnounce.png">
-<img width="288px" src="./assets/readme/contest.png">
-<img width="288px" src="./assets/readme/hackathon.png">
-<img width="288px" src="./assets/readme/ebook.png">
-<img width="288px" src="./assets/readme/ebookLink.png">
-<img width="288px" src="./assets/readme/course.png">
-<img width="288px" src="./assets/readme/about.png">
-<img width="288px" src="./assets/readme/aboutTeam.png">
-<img width="288px" src="./assets/readme/aboutAuthor.png">
+## :camera_flash: Screenshots
+<p>
+<img width="250px" src="./assets/readme/splash.png">
+<img width="250px" src="./assets/readme/Login.png">
+<img width="250px" src="./assets/readme/homescreen.png">
+<img width="250px" src="./assets/readme/notice.png">
+<img width="250px" src="./assets/readme/noticeDetail.png">
+<img width="250px" src="./assets/readme/classroom.png">
+<img width="250px" src="./assets/readme/classroomDetail.png">
+<img width="250px" src="./assets/readme/classData.png">
+<img width="250px" src="./assets/readme/classAnnounce.png">
+<img width="250px" src="./assets/readme/contest.png">
+<img width="250px" src="./assets/readme/hackathon.png">
+<img width="250px" src="./assets/readme/ebook.png">
+<img width="250px" src="./assets/readme/ebookLink.png">
+<img width="250px" src="./assets/readme/course.png">
+<img width="250px" src="./assets/readme/about.png">
+<img width="250px" src="./assets/readme/aboutTeam.png">
+<img width="250px" src="./assets/readme/aboutAuthor.png">
+</p>
 
 ## Development
 
