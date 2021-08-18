@@ -33,7 +33,7 @@ You can download the latest APK [here](https://drive.google.com/drive/folders/1C
 
 ## :camera_flash: Screenshots
 
-<div style="width:100%;display:flex;justify-content:center;align-items:center;flex-wrap:wrap">
+<div style="margin:auto;width:100%;display:flex;justify-content:center;align-items:center;flex-wrap:wrap">
 <img width="250px" style="margin:20px" src="./assets/readme/splash.png">
 <img width="250px" style="margin:20px" src="./assets/readme/Login.png">
 <img width="250px" style="margin:20px" src="./assets/readme/homescreen.png">
