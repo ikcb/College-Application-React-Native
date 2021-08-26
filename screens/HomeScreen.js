@@ -1,4 +1,4 @@
-import React, { useEffect } from 'react'
+import React, { useState } from 'react'
 import { StyleSheet, RefreshControl, View, Text, ScrollView, FlatList, Image } from 'react-native'
 import { windowWidth } from "../constants/Constants"
 import { Avatar, Header } from 'react-native-elements'
@@ -16,6 +16,12 @@ export default function HomeScreen({ navigation }) {
     const dispatch = useDispatch();
 
     // Local State
+    const [refresh, setRefresh] = useState(false)
+    const show = [{ data: ebooks, text: "Ebooks" },
+    { data: udemyCourses, text: "Courses" },
+    { data: notes, text: "Notes" },
+    { data: recordings, text: "Recordings" },
+    { data: extras, text: "Extras" }]
 
     //Console
     console.log("In home Screen")
@@ -64,7 +70,8 @@ export default function HomeScreen({ navigation }) {
                 dispatch(setSubmissionData(arr))
             }).then(() => setTimeout(() => {
                 getSubData()
-            }, 200)).catch(err => console.log(err.message))
+                setRefresh(false)
+            }, 200)).catch(err => setRefresh(false))
     }
 
     //Get Sub Data
@@ -83,9 +90,11 @@ export default function HomeScreen({ navigation }) {
         }).catch(err => console.log(err.message))
     }
 
-    useEffect(() => {
-        getTokens()
-    }, [])
+    //Refresh Function
+    const handleRefresh = () => {
+        setRefresh(true);
+        getTokens();
+    }
 
     if (courseSubData && userInfo)
         return (<>
@@ -108,12 +117,14 @@ export default function HomeScreen({ navigation }) {
             <ScrollView
                 refreshControl={
                     <RefreshControl
-                        refreshing={false}
+                        refreshing={refresh}
+                        onRefresh={handleRefresh}
                     />}
                 style={{ flex: 1, backgroundColor: "white" }}>
+
                 <View style={styles.deadline}>
                     <Text style={styles.date}>{date}</Text>
-                    <TimeTableComp batchData={batchData} batch={batch} dispatch={dispatch} />
+                    {userInfo.email.includes("iiitkota.ac.in") && userInfo.email.includes("2020") ? <TimeTableComp batchData={batchData} batch={batch} dispatch={dispatch} /> : null}
                 </View>
 
                 <View style={styles.deadline1}>
@@ -137,135 +148,36 @@ export default function HomeScreen({ navigation }) {
                         })
                     }
                 </View>
-                {ebooks && ebooks.length > 5 ?
-                    <View style={styles.section}>
-                        <Text style={styles.uploadText}>New Ebooks</Text>
-                        <FlatList
-                            horizontal
-                            showsHorizontalScrollIndicator={false}
-                            data={ebooks.subarray(-5)}
-                            renderItem={({ item, index }) => {
-                                return <UploadBox item={item} index={index} />
-                            }}
-                            keyExtractor={(item, index) => index.toString()}
-                        />
-                    </View> :ebooks.length > 1 &&
-                    <View style={styles.section}>
-                        <Text style={styles.uploadText}>New Ebooks</Text>
-                        <FlatList
-                            horizontal
-                            showsHorizontalScrollIndicator={false}
-                            data={ebooks}
-                            renderItem={({ item, index }) => {
-                                return <UploadBox item={item} index={index} />
-                            }}
-                            keyExtractor={(item, index) => index.toString()}
-                        />
-                    </View>
-                }
-                {udemyCourses && udemyCourses.length > 5 ?
-                    <View style={styles.section}>
-                        <Text style={styles.uploadText}>New Courses</Text>
-                        <FlatList
-                            horizontal
-                            showsHorizontalScrollIndicator={false}
-                            data={udemyCourses.subarray(-5)}
-                            renderItem={({ item, index }) => {
-                                return <UploadBox item={item} index={index} />
-                            }}
-                            keyExtractor={(item, index) => index.toString()}
-                        />
-                    </View> :udemyCourses.length > 1 &&
-                    <View style={styles.section}>
-                        <Text style={styles.uploadText}>New Courses</Text>
-                        <FlatList
-                            horizontal
-                            showsHorizontalScrollIndicator={false}
-                            data={udemyCourses}
-                            renderItem={({ item, index }) => {
-                                return <UploadBox item={item} index={index} />
-                            }}
-                            keyExtractor={(item, index) => index.toString()}
-                        />
-                    </View>
-                }
-                {notes && notes.length > 5 ?
-                    <View style={styles.section}>
-                        <Text style={styles.uploadText}>New Notes</Text>
-                        <FlatList
-                            horizontal
-                            showsHorizontalScrollIndicator={false}
-                            data={notes.subarray(-5)}
-                            renderItem={({ item, index }) => {
-                                return <UploadBox item={item} index={index} />
-                            }}
-                            keyExtractor={(item, index) => index.toString()}
-                        />
-                    </View> :notes.length > 1 &&
-                    <View style={styles.section}>
-                        <Text style={styles.uploadText}>New Notes</Text>
-                        <FlatList
-                            horizontal
-                            showsHorizontalScrollIndicator={false}
-                            data={notes}
-                            renderItem={({ item, index }) => {
-                                return <UploadBox item={item} index={index} />
-                            }}
-                            keyExtractor={(item, index) => index.toString()}
-                        />
-                    </View>
-                }
-                {recordings && recordings.length > 5 ?
-                    <View style={styles.section}>
-                        <Text style={styles.uploadText}>New Recodings</Text>
-                        <FlatList
-                            horizontal
-                            showsHorizontalScrollIndicator={false}
-                            data={recordings.subarray(-5)}
-                            renderItem={({ item, index }) => {
-                                return <UploadBox item={item} index={index} />
-                            }}
-                            keyExtractor={(item, index) => index.toString()}
-                        />
-                    </View> :recordings.length > 1 &&
-                    <View style={styles.section}>
-                        <Text style={styles.uploadText}>New Recordings</Text>
-                        <FlatList
-                            horizontal
-                            showsHorizontalScrollIndicator={false}
-                            data={recordings}
-                            renderItem={({ item, index }) => {
-                                return <UploadBox item={item} index={index} />
-                            }}
-                            keyExtractor={(item, index) => index.toString()}
-                        />
-                    </View>
-                }
-                {extras && extras.length > 5 ?
-                    <View style={styles.section}>
-                        <Text style={styles.uploadText}>New Extras</Text>
-                        <FlatList
-                            horizontal
-                            showsHorizontalScrollIndicator={false}
-                            data={extras.subarray(-5)}
-                            renderItem={({ item, index }) => {
-                                return <UploadBox item={item} index={index} />
-                            }}
-                            keyExtractor={(item, index) => index.toString()}
-                        />
-                    </View> : extras.length > 1 &&
-                    <View style={styles.section}>
-                        <Text style={styles.uploadText}>New Extras</Text>
-                        <FlatList
-                            horizontal
-                            showsHorizontalScrollIndicator={false}
-                            data={extras}
-                            renderItem={({ item, index }) => {
-                                return <UploadBox item={item} index={index} />
-                            }}
-                            keyExtractor={(item, index) => index.toString()}
-                        />
-                    </View>
+                {
+                    show.map((item, index) => {
+                        return (
+                            item.data && item.data.length > 5 ?
+                                <View style={styles.section} key={index}>
+                                    <Text style={styles.uploadText}>{`New ${item.text}`}</Text>
+                                    <FlatList
+                                        horizontal
+                                        showsHorizontalScrollIndicator={false}
+                                        data={item.data.subarray(-5)}
+                                        renderItem={({ item, index }) => {
+                                            return <UploadBox item={item} index={index} />
+                                        }}
+                                        keyExtractor={(item, index) => index.toString()}
+                                    />
+                                </View> : item.data && item.data.length > 1 &&
+                                <View style={styles.section} key={index}>
+                                    <Text style={styles.uploadText}>{`New ${item.text}`}</Text>
+                                    <FlatList
+                                        horizontal
+                                        showsHorizontalScrollIndicator={false}
+                                        data={item.data}
+                                        renderItem={({ item, index }) => {
+                                            return <UploadBox item={item} index={index} />
+                                        }}
+                                        keyExtractor={(item, index) => index.toString()}
+                                    />
+                                </View>)
+                    })
+
                 }
 
                 <View style={{ paddingBottom: 50 }}></View>
@@ -341,3 +253,4 @@ const styles = StyleSheet.create({
         paddingBottom: 10,
     }
 })
+

@@ -180,6 +180,9 @@ export default function NoticeScreen({ navigation }) {
                                                 <Button
                                                     title="Patch"
                                                     buttonStyle={{ minHeight: '100%' }}
+                                                    onPress={() => {
+                                                        navigation.navigate("NoticeEditScreen", { item });
+                                                    }}
                                                 />
                                             }
                                             rightContent={

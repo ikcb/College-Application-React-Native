@@ -12,6 +12,7 @@ import { PersistGate } from 'redux-persist/integration/react';
 import { Provider } from 'react-redux';
 import { useSelector } from 'react-redux';
 import NoticeDetailScreen from './components/Notice/NoticeDetailScreen';
+import NoticeEditScreen from './components/Notice/NoticeEditScreen';
 import AboutTeam from './components/About/AboutTeam';
 import AboutAuthor from './components/About/AboutAuthor';
 import Admin from './components/About/Admin';
@@ -20,6 +21,7 @@ import { windowWidth, windowHeight } from "./constants/Constants"
 import LottieView from 'lottie-react-native';
 import RNBootSplash from "react-native-bootsplash";
 import PushNotification, { Importance } from 'react-native-push-notification';
+import { StatusBar } from 'react-native';
 
 //HomeStack
 const HomeStack = createStackNavigator();
@@ -46,6 +48,7 @@ function NoticeStackScreen() {
     >
       <NoticeStack.Screen name="Notice" component={NoticeScreen} />
       <NoticeStack.Screen name="NoticeDetailScreen" component={NoticeDetailScreen} />
+      <NoticeStack.Screen name="NoticeEditScreen" component={NoticeEditScreen} />
     </NoticeStack.Navigator>
   );
 }
@@ -234,13 +237,16 @@ function Navigation() {
   const { authData, courses, contests, courseSubData, submissionsData } = useSelector((state) => state);
 
   const LoaderScreen = () => {
-    return <LottieView
-      style={{ flex: 1, width: windowWidth, height: windowHeight }}
-      source={require('./assets/splash.json')}
-      autoPlay
-      loop={false}
-      onAnimationFinish={() => setLoad(false)}
-    />
+    return <>
+      <StatusBar hidden={true} />
+      <LottieView
+        style={{ flex: 1, width: windowWidth, height: windowHeight }}
+        source={require('./assets/splash.json')}
+        autoPlay
+        loop={false}
+        onAnimationFinish={() => setLoad(false)}
+      />
+    </>
   }
 
   return (<NavigationContainer>

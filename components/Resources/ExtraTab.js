@@ -49,7 +49,7 @@ export default function RecordingTab({ data, text, search }) {
 
     const handleRefresh = () => {
         setRefresh(true)
-        getNotes()
+        // getNotes()
     }
 
     if (!newData) {

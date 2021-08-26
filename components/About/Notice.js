@@ -5,10 +5,10 @@ import { windowWidth, windowHeight } from "../../constants/Constants"
 import axios from 'axios';
 import { setAdmin } from '../../reduxConfig/actions';
 
-export default function Notice({dispatch}) {
-    const [message, setmessage] = useState("")
-    const [heading, setheading] = useState("")
-    const [code, setcode] = useState("")
+export default function Notice({ dispatch, data = { message: '', heading: '', code: '' } }) {
+    const [message, setmessage] = useState(data.message)
+    const [heading, setheading] = useState(data.heading)
+    const [code, setcode] = useState(data.code)
     const [okh, setokh] = useState(false)
 
     const reset = () => {

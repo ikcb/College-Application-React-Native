@@ -47,7 +47,8 @@ const styles = StyleSheet.create({
         fontWeight: "700",
         fontFamily: "sans-serif",
         paddingLeft: 10,
-        color: "white"
+        color: "white",
+        letterSpacing: 1
     },
     timeText: {
         fontSize: 18,
@@ -72,7 +73,8 @@ const styles = StyleSheet.create({
         textAlign: "center",
         marginLeft: 10,
         borderRadius: 5,
-        backgroundColor: "white"
+        backgroundColor: "white",
+        letterSpacing: 0.5
     },
     teacherText: {
         fontSize: 18,
@@ -80,7 +82,9 @@ const styles = StyleSheet.create({
         fontFamily: "sans-serif",
         paddingLeft: 10,
         color: "white",
-        marginTop: -5
+        marginTop: -5,
+        textTransform: "capitalize",
+        letterSpacing: 1
     },
     timeContainer: {
         flexDirection: "row",

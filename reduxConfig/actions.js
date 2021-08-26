@@ -71,7 +71,3 @@ export const setBatchData = (data) => {
 export const setAdmin = (data) => {
     return { type: 'setAdminAsync', payload: data };
 };
-
-
-
-

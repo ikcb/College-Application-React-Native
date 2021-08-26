@@ -123,8 +123,8 @@ export default function LoginScreen({ navigation }) {
             .then(response => response.data.length >= 1 ? dispatch(setNotes(response.data)) : null);
         await axios.get('https://backend-clg-app.herokuapp.com/resources/courses/')
             .then(response => response.data.length >= 1 ? dispatch(setUdemyCourses(response.data)) : null);
-        await axios.get('https://backend-clg-app.herokuapp.com/resources/extras/')
-            .then(response => response.data.length >= 1 ? dispatch(setExtra(response.data)) : null);
+        // await axios.get('https://backend-clg-app.herokuapp.com/resources/extras/')
+        //     .then(response => response.data.length >= 1 ? dispatch(setExtra(response.data)) : null);
     }
 
     useEffect(() => {//3
@@ -144,8 +144,8 @@ export default function LoginScreen({ navigation }) {
 
     useEffect(() => {//7
         if (authData && courses && contests && submissionsData && courseSubData) {
-            setLoad(false)
             navigation.navigate('MainTab')
+            setLoad(false)
         }
     }, [courseSubData])
 

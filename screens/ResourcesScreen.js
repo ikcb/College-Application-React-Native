@@ -38,8 +38,8 @@ export default function ResourcesScreen() {
             .then(response => response.data.length >= 1 ? dispatch(setNotes(response.data)) : dispatch(setNotes(tempData)));
         await axios.get('https://backend-clg-app.herokuapp.com/resources/courses/')
             .then(response => response.data.length >= 1 ? dispatch(setUdemyCourses(response.data)) : dispatch(setUdemyCourses(tempData)));
-        await axios.get('https://backend-clg-app.herokuapp.com/resources/extras/')
-            .then(response => response.data.length >= 1 ? dispatch(setExtra(response.data)) : dispatch(setExtra(tempData)));
+        // await axios.get('https://backend-clg-app.herokuapp.com/resources/extras/')
+        //     .then(response => response.data.length >= 1 ? dispatch(setExtra(response.data)) : dispatch(setExtra(tempData)));
     }
 
     useEffect(() => {

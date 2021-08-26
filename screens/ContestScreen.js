@@ -20,8 +20,6 @@ export default function ContestScreen() {
     const scrollY = useRef(new Animated.Value(0)).current
     const [refresh, setRefresh] = useState(false)
     const [refresh1, setRefresh1] = useState(true)
-    const [extraData, setextraData] = useState(contests)
-    const [extraHackData, setextraHackData] = useState(hackathons)
     const [pgNum, setpgNum] = useState(2)
     const [change, setChange] = useState(true)
 
@@ -50,8 +48,8 @@ export default function ContestScreen() {
     const getExtraList = async () => {
         if (pgNum != -1)
             axios.get(`https://backend-clg-app.herokuapp.com/cp_reminder?pg=${pgNum}`).then((data) => {
-                let arr = extraData.concat(data.data.contest)
-                setextraData(arr)
+                let arr = contests.concat(data.data.contest)
+                dispatch(setContestList(arr))
                 if (pgNum >= data.data.maxPages) setpgNum(-1)
                 setRefresh1(false)
                 setTimeout(() => {
@@ -65,8 +63,8 @@ export default function ContestScreen() {
     const getExtraHackthonList = async () => {
         if (pgNum != -1)
             axios.get(`https://backend-clg-app.herokuapp.com/hackathons?pg=${pgNum}`).then((data) => {
-                let arr = extraHackData.concat(data.data.contest)
-                setextraHackData(arr)
+                let arr = hackathons.concat(data.data.contest)
+                dispatch(setHackathonsList(arr))
                 if (pgNum >= data.data.maxPages) setpgNum(-1)
                 setRefresh1(false)
                 setTimeout(() => {
@@ -96,6 +94,115 @@ export default function ContestScreen() {
             getHackathons()
         else
             getList()
+    }
+
+    const returnHackathon = () => {
+        return <Animated.FlatList
+            refreshControl={
+                <RefreshControl
+                    refreshing={refS}
+                    onRefresh={handleRefresh} />}
+            onScroll={
+                Animated.event(
+                    [{ nativeEvent: { contentOffset: { y: scrollY } } }],
+                    { useNativeDriver: true }
+                )}
+            data={hackathons}
+            keyExtractor={(item, index) => index.toString()}
+            onEndReached={() => pgNum != -1 ? setpgNum(pgNum + 1) : setRefresh1(false)}
+            onEndReachedThreshold={0.7}
+            ListHeaderComponent={refresh && !refresh1 ? <View style={{ justifyContent: 'center', alignItems: "center" }}>
+                <Image source={require("../assets/load2.gif")} style={{ width: 100, height: 100 }} />
+            </View> : null}
+            renderItem={({ item, index }) => {
+                const inputRange = [
+                    -1,
+                    0,
+                    index * (windowWidth / 2.3 + 10),
+                    (index + 2) * (windowWidth / 2.3 + 10),
+                ]
+                const scale = scrollY.interpolate({
+                    inputRange,
+                    outputRange: [1, 1, 1, 0]
+                })
+
+                return (
+                    <Animated.View
+                        style={{
+                            flex: 1, justifyContent: 'center',
+                            alignItems: 'center',
+                            transform: [{ scale }]
+                        }}>
+                        <HackathonBox
+                            name={item.name}
+                            site={item.site}
+                            desc={item.desc}
+                            reg_start={item.reg_start}
+                            reg_end={item.reg_end}
+                            host={item.host}
+                            index={index}
+                        />
+                    </Animated.View>)
+            }}
+            ListFooterComponent={refresh1 && !refresh ? <View style={{ justifyContent: 'center', alignItems: "center", }}>
+                <Image source={require("../assets/load2.gif")} style={{ width: 100, height: 100 }} />
+                <View style={{ paddingBottom: 70, backgroundColor: "transparent" }}></View>
+            </View> : <View style={{ paddingBottom: 70, backgroundColor: "transparent" }}></View>}
+        />
+    }
+
+    const returnContest = () => {
+        return <Animated.FlatList
+            refreshControl={
+                <RefreshControl
+                    refreshing={refS}
+                    onRefresh={handleRefresh} />}
+            onScroll={
+                Animated.event(
+                    [{ nativeEvent: { contentOffset: { y: scrollY } } }],
+                    { useNativeDriver: true }
+                )}
+            data={contests}
+            keyExtractor={(item, index) => index.toString()}
+            onEndReached={() => pgNum != -1 ? setpgNum(pgNum + 1) : setRefresh1(false)}
+            onEndReachedThreshold={0.7}
+            ListHeaderComponent={refresh && !refresh1 ? <View style={{ justifyContent: 'center', alignItems: "center" }}>
+                <Image source={require("../assets/load2.gif")} style={{ width: 100, height: 100 }} />
+            </View> : null}
+            renderItem={({ item, index }) => {
+                const inputRange = [
+                    -1,
+                    0,
+                    index * (windowWidth / 2.3 + 10),
+                    (index + 2) * (windowWidth / 2.3 + 10),
+                ]
+                const scale = scrollY.interpolate({
+                    inputRange,
+                    outputRange: [1, 1, 1, 0]
+                })
+
+                return (
+                    <Animated.View
+                        style={{
+                            flex: 1, justifyContent: 'center',
+                            alignItems: 'center',
+                            transform: [{ scale }]
+                        }}>
+                        <ContestBox
+                            name={item.event_name}
+                            duration={item.duration}
+                            time={item.start_time}
+                            source={item.resource_website}
+                            url={item.contest_url}
+                            index={index}
+                        />
+                    </Animated.View>)
+            }}
+            ListFooterComponent={refresh1 && !refresh ? <View style={{ justifyContent: 'center', alignItems: "center", }}>
+                <Image source={require("../assets/load2.gif")} style={{ width: 100, height: 100 }} />
+                <View style={{ paddingBottom: 70, backgroundColor: "transparent" }}></View>
+            </View> : <View style={{ paddingBottom: 70, backgroundColor: "transparent" }}></View>}
+        />
     }
 
     const refS = false
@@ -133,111 +240,7 @@ export default function ContestScreen() {
                             setpgNum(2)
                         }} />}
                 />
-                {change ?
-                    <Animated.FlatList
-                        refreshControl={
-                            <RefreshControl
-                                refreshing={refS}
-                                onRefresh={handleRefresh} />}
-                        onScroll={
-                            Animated.event(
-                                [{ nativeEvent: { contentOffset: { y: scrollY } } }],
-                                { useNativeDriver: true }
-                            )}
-                        data={extraData}
-                        keyExtractor={(item, index) => index.toString()}
-                        onEndReached={() => pgNum != -1 ? setpgNum(pgNum + 1) : setRefresh1(false)}
-                        onEndReachedThreshold={0.7}
-                        ListHeaderComponent={refresh && !refresh1 ? <View style={{ justifyContent: 'center', alignItems: "center" }}>
-                            <Image source={require("../assets/load2.gif")} style={{ width: 100, height: 100 }} />
-                        </View> : null}
-                        renderItem={({ item, index }) => {
-                            const inputRange = [
-                                -1,
-                                0,
-                                index * (windowWidth / 2.3 + 10),
-                                (index + 2) * (windowWidth / 2.3 + 10),
-                            ]
-                            const scale = scrollY.interpolate({
-                                inputRange,
-                                outputRange: [1, 1, 1, 0]
-                            })
-
-                            return (
-                                <Animated.View
-                                    style={{
-                                        flex: 1, justifyContent: 'center',
-                                        alignItems: 'center',
-                                        transform: [{ scale }]
-                                    }}>
-                                    <ContestBox
-                                        name={item.event_name}
-                                        duration={item.duration}
-                                        time={item.start_time}
-                                        source={item.resource_website}
-                                        url={item.contest_url}
-                                        index={index}
-                                    />
-                                </Animated.View>)
-                        }}
-                        ListFooterComponent={refresh1 && !refresh ? <View style={{ justifyContent: 'center', alignItems: "center", }}>
-                            <Image source={require("../assets/load2.gif")} style={{ width: 100, height: 100 }} />
-                            <View style={{ paddingBottom: 70, backgroundColor: "transparent" }}></View>
-                        </View> : <View style={{ paddingBottom: 70, backgroundColor: "transparent" }}></View>}
-                    />
-                    :
-                    <Animated.FlatList
-                        refreshControl={
-                            <RefreshControl
-                                refreshing={refS}
-                                onRefresh={handleRefresh} />}
-                        onScroll={
-                            Animated.event(
-                                [{ nativeEvent: { contentOffset: { y: scrollY } } }],
-                                { useNativeDriver: true }
-                            )}
-                        data={extraHackData}
-                        keyExtractor={(item, index) => index.toString()}
-                        onEndReached={() => pgNum != -1 ? setpgNum(pgNum + 1) : setRefresh1(false)}
-                        onEndReachedThreshold={0.7}
-                        ListHeaderComponent={refresh && !refresh1 ? <View style={{ justifyContent: 'center', alignItems: "center" }}>
-                            <Image source={require("../assets/load2.gif")} style={{ width: 100, height: 100 }} />
-                        </View> : null}
-                        renderItem={({ item, index }) => {
-                            const inputRange = [
-                                -1,
-                                0,
-                                index * (windowWidth / 2.3 + 10),
-                                (index + 2) * (windowWidth / 2.3 + 10),
-                            ]
-                            const scale = scrollY.interpolate({
-                                inputRange,
-                                outputRange: [1, 1, 1, 0]
-                            })
-
-                            return (
-                                <Animated.View
-                                    style={{
-                                        flex: 1, justifyContent: 'center',
-                                        alignItems: 'center',
-                                        transform: [{ scale }]
-                                    }}>
-                                    <HackathonBox
-                                        name={item.name}
-                                        site={item.site}
-                                        desc={item.desc}
-                                        reg_start={item.reg_start}
-                                        reg_end={item.reg_end}
-                                        host={item.host}
-                                        index={index}
-                                    />
-                                </Animated.View>)
-                        }}
-                        ListFooterComponent={refresh1 && !refresh ? <View style={{ justifyContent: 'center', alignItems: "center", }}>
-                            <Image source={require("../assets/load2.gif")} style={{ width: 100, height: 100 }} />
-                            <View style={{ paddingBottom: 70, backgroundColor: "transparent" }}></View>
-                        </View> : <View style={{ paddingBottom: 70, backgroundColor: "transparent" }}></View>}
-                    />}
+                {change ? returnContest() : returnHackathon()}
             </View>
         )
 }

@@ -1,7 +1,7 @@
 import React, { useEffect, useState } from 'react'
 import { View, UIManager, LayoutAnimation, StyleSheet, TouchableWithoutFeedback, Image, Linking, FlatList } from 'react-native'
 import { ListItem } from 'react-native-elements'
-import { useDispatch } from 'react-redux';
+import { useDispatch, useSelector } from 'react-redux';
 import { setRecordings } from '../../reduxConfig/actions';
 import axios from "axios"
 
@@ -12,6 +12,7 @@ if (Platform.OS === 'android') {
 }
 
 export default function RecordingTab({ data, text, search }) {
+    const { userInfo } = useSelector((state) => state);
     const [current, setcurrent] = useState(-1)
     const [newData, setnewData] = useState(data)
     const [refresh, setRefresh] = useState(false)
@@ -31,7 +32,7 @@ export default function RecordingTab({ data, text, search }) {
     }
     const getNotes = async () => {
         await axios.get('https://backend-clg-app.herokuapp.com/resources/videos/')
-            .then(response => response.data.length > 0 ? dispatch(setRecordings(response.data)) : null);
+            .then(response => response.data.length > 0 && userInfo.email.includes("iiitkota.ac.in") && userInfo.email.includes("2020") ? dispatch(setRecordings(response.data)) : null);
         setRefresh(false)
     }
 

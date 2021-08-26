@@ -31,7 +31,7 @@ export default function AdminScreen() {
             })
             .catch((e) => seterror(true));
     }
-
+    
     const renderTab = () => {
         switch (index) {
             case 0: return <Notice dispatch={dispatch} />;
@@ -126,7 +126,7 @@ const styles = StyleSheet.create({
         fontSize: 20,
         fontFamily: "sans-serif",
         color: "red",
-        fontFamily:"600",
+        fontFamily: "600",
         textAlign: "center",
         marginTop: 20
     }
