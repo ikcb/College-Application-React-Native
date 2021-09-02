@@ -86,6 +86,6 @@ npx react-native run-android
 
 ## Contributors
 
-| ![Akash Tureha](https://avatars.githubusercontent.com/u/72198360?s=400) |
+| ![Akash Tureha](https://avatars.githubusercontent.com/u/72198360?s=100) |
 | :----------------------------------------------------------------------------: |
 |            [Akash Tureha](https://github.com/MrMischievousX) <br> Author             |
